@@ -1,0 +1,143 @@
+import java.util.Scanner;
+public class Bank {
+    public static void main(String[] args){ 
+        Scanner data = new Scanner(System.in);
+        System.out.println("Welcome to the Corrupted Bank!");
+        int balance = 0;
+        
+        while (balance <= 0 || balance != (int)balance){
+            try{
+                System.out.print("Enter your balance: ");
+                String ammount = data.nextLine();
+                balance = Integer.parseInt(ammount);
+                if (balance <= 0){
+                    System.out.println("\n============================================================");
+                    System.out.println("[System Error] Negative Balance is not Allowed!");
+                    System.out.println("============================================================\n");
+                }
+            }catch (NumberFormatException e) {
+                System.out.println("\n============================================================");
+                System.out.println("[System Error] That's not a Money, Try Again!");
+                System.out.println("============================================================\n");
+            }
+        }
+        
+        Account monds = new Account(balance);
+        System.out.println("============================================================");
+        
+        int option = 0;
+        while(true){
+            try{
+                System.out.println("1. Withdraw ");
+                System.out.println("2. Deposit ");
+                System.out.println("3. EXIT");
+                System.out.print("Choose your Action: ");
+                String str_option = data.nextLine();
+                option = Integer.parseInt(str_option);
+                System.out.println("============================================================");
+            switch (option){
+                case 1:
+                    withdraw(monds, data);
+                    break;
+                case 2:
+                    deposit(monds, data);
+                    break;
+                case 3:
+                    exit();
+                    break;
+                default:
+                    System.out.println("\n[System Error] Not in the choices, Try Again!");
+                    System.out.println("\n============================================================"); 
+                    break;
+            }          
+            }catch (NumberFormatException e){
+                System.out.println("============================================================\n"); 
+                System.out.println("[System Error] Wrong Input Try again!");
+                System.out.println("\n============================================================");
+            }
+        }
+    }
+    public static void withdraw(Account monds, Scanner data) {
+        System.out.println("How much amount you want to withdraw from your account?");
+        int amount = 0;
+
+        // Validate's User Input [Amount]
+        while (amount == 0 || amount != (int)amount ) {
+            try {
+                System.out.print("Amount: ");
+                String str_amount = data.nextLine();
+                amount = Integer.parseInt(str_amount);
+                System.out.println("Current balance: " + monds.withdraw_amount(amount));
+            } catch (NumberFormatException e) {
+                System.out.println("============================================================\n"); 
+                System.out.println("[Error] Invalid Input Try again!");
+                System.out.println("\n============================================================"); 
+            }
+        }
+    }
+    public static void deposit(Account monds, Scanner data) {
+        System.out.println("How much amount you want to deposit in your account?");
+        int amount = 0;
+
+        // Validate's User Input [Amount]
+        while (amount == 0 || amount != (int)amount ) {
+            try {
+                System.out.print("Amount: ");
+                String str_amount = data.nextLine();
+                amount = Integer.parseInt(str_amount);
+                System.out.println("Current balance: " + monds.deposit_amount(amount));
+            } catch (NumberFormatException e) {
+                System.out.println("============================================================\n"); 
+                System.out.println("[Error] Invalid Input Try Again!");
+                System.out.println("\n============================================================"); 
+            }
+        }
+    }
+    public static void exit() {
+        String ty = """
+                    
+                    ╔╦╗┬ ┬┌─┐┌┐┌┬┌─  ╦ ╦┌─┐┬ ┬  ╔═╗┌─┐┌┬┐┌─┐   ╔═╗┌─┐┌─┐┬┌┐┌┬
+                     ║ ├─┤├─┤│││├┴┐  ╚╦╝│ ││ │  ║  │ ││││├┤   ╠═╣│ ┬├─┤│││││
+                     ╩ ┴ ┴┴ ┴┘└┘┴ ┴   ╩ └─┘└─┘  ╚═╝└─┘┴ ┴└─┘  ╩ ╩└─┘┴ ┴┴┘└┘o
+                    """;
+        System.out.println(ty);
+        System.out.println("============================================================");
+        System.exit(0);
+    }
+}
+
+// Put this on new class
+
+class Account {
+    private int balance = 0;
+
+    public Account(int balance) {
+        this.balance = balance;
+    }
+    public int withdraw_amount(int amount) {
+        if (amount > this.balance) {
+            System.out.println("============================================================\n");
+            System.out.println("[System Error] Unable to Process Withdrawal!\n");
+            System.out.println("[System Error] Insufficient Balance!");
+            System.out.println("\n============================================================");
+        } else if (amount <= 0) {
+            System.out.println("============================================================\n");
+            System.out.println("[System Error] Unable to Withdraw Negative Number!");
+            System.out.println("\n============================================================");
+        } else {
+            this.balance -= amount;
+        }
+        return this.balance;
+    }
+    public int deposit_amount(int amount) {
+        if (amount <= 0) {
+            System.out.println("============================================================\n");
+            System.out.println("[System Error] Unable to Deposit Negative Number!");
+            System.out.println("\n============================================================");
+        } else {
+            this.balance += amount;
+        }
+        return this.balance;
+    }
+}
+
