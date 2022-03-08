@@ -1,0 +1,36 @@
+class Professor {
+    public void profStatus(){
+        System.out.println("==========================================================");
+    } 
+}
+class Dean extends Professor{
+    public void profStatus(){
+        System.out.println("                        Status");
+        System.out.println("Rank: Dean");
+        System.out.println("Name: Luffy D. Monkey");
+        System.out.println("Department: Science");
+        System.out.println("Salary: 49000");
+        System.out.println("==========================================================");
+    }
+}
+class Executive extends Professor{
+    public void profStatus(){
+        System.out.println("                        Status");
+        System.out.println("Rank: Executive");
+        System.out.println("Name: Naruto Uzumaki");
+        System.out.println("Department: Mathematics");
+        System.out.println("Salary: 51000");
+        System.out.println("==========================================================");
+    }
+}
+class Main{
+    public static void main(String[] args){
+        Professor myProfessor = new Professor();
+        Professor myDean = new Dean();
+        Professor myExecutive = new Executive();
+        
+        myProfessor.profStatus();
+        myDean.profStatus();
+        myExecutive.profStatus();
+    }
+}
